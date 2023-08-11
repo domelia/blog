@@ -1,0 +1,16 @@
+{
+  "hash": "1a4cc1f1e49382e2881e3348710133b7",
+  "result": {
+    "markdown": "---\ntitle: \"Знаменитая интерактивная визуализация данных gapminder\"\nauthor: \"Дарья Омельченко\"\ndate: \"2023-08-11\"\ncategories: [новости, код, анализ]\nimage: \"image.jpg\"\n---\n\n\nДавайте воссоздадим одну из самых знаменитых визуализаций основателя шведского фонда Gapminder [Ханса Рослинга](https://en.wikipedia.org/wiki/Hans_Rosling) - пузырьковую диаграмму, показывающую взаимосвязь между уровнем жизни (по ВРП на душу населения), количеством населения и ожидаемой продолжительностью жизни.\n\nГрафик взят из [R Graph Gallery](https://r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html):\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# Данные возьмем из одноименной библиотеки:\nlibrary(gapminder)\n \n# Библиотеки для создания графика:\nlibrary(ggplot2)\nlibrary(gganimate)\n \n# Создадим множество графиков ggplot - по одному графику на каждый год  frame=year\nggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +\n  geom_point(alpha = 0.7, show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  scale_x_log10() +\n  facet_wrap(~continent) +\n  # Вот здесь начинается магия gganimate, соединяющая графики в одну визуализацию\n  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +\n  transition_time(year) +\n  ease_aes('linear')\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-1.gif)\n:::\n:::\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
